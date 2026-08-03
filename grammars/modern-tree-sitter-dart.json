@@ -1,0 +1,21 @@
+{
+  "name": "Dart",
+  "scopeName": "source.dart",
+  "type": "modern-tree-sitter",
+  "parser": "tree-sitter-dart",
+  "injectionRegex": "^(dart)$",
+  "fileTypes": ["dart"],
+  "comments": {
+    "start": "/ "
+  },
+  "treeSitter": {
+    // Pin a tag or a full SHA, never a branch. Verify the ref is on the main
+    // line before trusting it — `gh api repos/OWNER/REPO/compare/<ref>...HEAD`
+    // reporting `diverged` or a nonzero `behind` means it is not.
+    "parserSource": "github:UserNobody14/tree-sitter-dart#be07cf7118d3dba06236a3f19541685a68209934",
+    "wasmBuildTool": "tree-sitter-cli#v0.26.11",
+    "grammar": "tree-sitter-dart/tree-sitter-dart.wasm",
+    "highlightsQuery": "tree-sitter-dart/highlights.scm",
+    "tagsQuery": "tree-sitter-dart/tags.scm"
+  }
+}
