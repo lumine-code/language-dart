@@ -165,7 +165,7 @@
 (enum_declaration
   name: (identifier) @support.type.dart)
 (enum_constant
-  name: (identifier) @identifier.constant)
+  name: (identifier) @constant.other.enum.dart)
 
 ; Variables
 ; --------------------
@@ -210,10 +210,10 @@
 ; Parameters
 ; --------------------
 (formal_parameter
-    name: (identifier) @identifier.parameter)
+    name: (identifier) @variable.parameter.dart)
 
 (named_argument
-  (label (identifier) @identifier.parameter))
+  (label (identifier) @variable.parameter.dart))
 
 ; Literals
 ; --------------------
