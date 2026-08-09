@@ -9,7 +9,7 @@ const path = require("path");
 
 describe("Dart Tree-sitter grammar", () => {
   beforeEach(async () => {
-    await atom.packages.activatePackage("language-dart");
+    await lumine.packages.activatePackage("language-dart");
   });
 
   it("tokenizes the fixture", async () => {
