@@ -10,12 +10,12 @@ Dart language support.
 
 ## Installation
 
-To install `language-dart` search for _language-dart_ in the Install pane of the Lumine settings or run `lumine --install lumine-code/language-dart`.
+To install `language-dart` search for it in the Install pane of the Lumine settings, or run the command `lumine --install lumine-code/language-dart`.
 
 ## Services
 
-- **hyperlink.injection** (`^1.0.0`): consumed to highlight URLs inside Dart files as clickable links.
-- **todo.injection** (`^1.0.0`): consumed to highlight `TODO`-style markers inside comments.
+- `hyperlink.injection`: consumed to highlight URLs inside Dart files as clickable links.
+- `todo.injection`: consumed to highlight `TODO`-style markers inside comments.
 
 ## Contributing
 
