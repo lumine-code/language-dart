@@ -3,7 +3,7 @@
   "scopeName": "source.dart",
   "type": "tree-sitter",
   "parser": "tree-sitter-dart",
-  "injectionRegex": "^(dart)$",
+  "injectionNames": ["dart"],
   "fileTypes": ["dart"],
   "comments": {
     "start": "/ "
@@ -14,8 +14,8 @@
     // reporting `diverged` or a nonzero `behind` means it is not.
     "parserSource": "github:UserNobody14/tree-sitter-dart#be07cf7118d3dba06236a3f19541685a68209934",
     "wasmBuildTool": "tree-sitter-cli#v0.26.13",
-    "grammar": "tree-sitter-dart/tree-sitter-dart.wasm",
-    "highlightsQuery": "tree-sitter-dart/highlights.scm",
-    "tagsQuery": "tree-sitter-dart/tags.scm"
+    "grammar": "dart.wasm",
+    "highlightsQuery": "dart-highlights.scm",
+    "tagsQuery": "dart-tags.scm"
   }
 }
