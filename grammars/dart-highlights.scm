@@ -71,8 +71,10 @@
 
 ; NOTE: This query is a bit of a work around for the fact that the dart grammar doesn't
 ; specifically identify a node as a function call
-(((identifier) @entity.name.function.dart (#match? @entity.name.function.dart "^_?[a-z]"))
- . (selector . (argument_part))) @entity.name.function.dart
+((identifier) @entity.name.function.dart
+  (#match? @entity.name.function.dart "^_?[a-z]")
+  (#is? test.typeAt "nextNamedSibling selector")
+  (#is? test.typeAt "nextNamedSibling.firstNamedChild argument_part"))
 
 ; Operators and Tokens
 ; --------------------
@@ -112,13 +114,19 @@
  (additive_operator)
 ] @keyword.operator.dart
 
-(type_arguments
-  "<" @punctuation.definition.type-arguments.begin.bracket.angle.dart
-  ">" @punctuation.definition.type-arguments.end.bracket.angle.dart)
+("<" @punctuation.definition.type-arguments.begin.bracket.angle.dart
+  (#is? test.childOfType type_arguments)
+  (#is? test.first true))
+(">" @punctuation.definition.type-arguments.end.bracket.angle.dart
+  (#is? test.childOfType type_arguments)
+  (#is? test.last true))
 
-(type_parameters
-  "<" @punctuation.definition.type-parameters.begin.bracket.angle.dart
-  ">" @punctuation.definition.type-parameters.end.bracket.angle.dart)
+("<" @punctuation.definition.type-parameters.begin.bracket.angle.dart
+  (#is? test.childOfType type_parameters)
+  (#is? test.first true))
+(">" @punctuation.definition.type-parameters.end.bracket.angle.dart
+  (#is? test.childOfType type_parameters)
+  (#is? test.last true))
 
 "(" @punctuation.definition.arguments.begin.bracket.round.dart
 ")" @punctuation.definition.arguments.end.bracket.round.dart
@@ -191,10 +199,11 @@
   (cascade_selector
     (identifier) @variable.other.member.dart))
 
-((selector
-  (unconditional_assignable_selector (identifier) @entity.name.function.dart))
-  (selector (argument_part (arguments)))
-)
+((identifier) @entity.name.function.dart
+  (#is? test.typeAt "parent unconditional_assignable_selector")
+  (#is? test.typeAt "parent.parent selector")
+  (#is? test.typeAt "parent.parent.nextNamedSibling selector")
+  (#is? test.typeAt "parent.parent.nextNamedSibling.firstNamedChild argument_part"))
 
 (cascade_section
   (cascade_selector (identifier) @entity.name.function.dart)
@@ -232,8 +241,10 @@
 (false) @constant.language.boolean.dart
 (null_literal) @constant.other.null.dart
 
-(documentation_comment) @comment.line.dart
-(comment) @comment.line.dart
+((documentation_comment) @comment.line.dart
+  (#set! adjust.endBeforeFirstMatchOf "\\r?$"))
+((comment) @comment.line.dart
+  (#set! adjust.endBeforeFirstMatchOf "\\r?$"))
 
 ; Annotations
 ; --------------------
@@ -262,13 +273,9 @@
   "when" @keyword.control.dart)
 
 ; Patterns & Pattern Matching
-(object_pattern
-  (identifier) @variable.other.member.dart)
-
-(record_pattern
-  (identifier) @variable.other.member.dart)
+((identifier) @variable.other.member.dart
+  (#is? test.childOfType "object_pattern record_pattern"))
 
 ; Record Types
 (record_type_field
   (identifier) @variable.other.dart)
-
