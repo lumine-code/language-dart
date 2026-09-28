@@ -19,12 +19,12 @@ describe("Dart Tree-sitter highlights", () => {
     await editor.getBuffer().languageMode.ready;
   }
 
-  function rawCaptures(startRow, endRow) {
-    const layer = editor.getBuffer().languageMode.rootLanguageLayer;
-    return layer.queries.highlightsQuery.captures(layer.tree.rootNode, {
+  async function rawCaptures(startRow, endRow) {
+    const groups = await editor.getGrammarQueryCaptureGroups("highlightsQuery", {
       startPosition: new Point(startRow, 0),
       endPosition: new Point(endRow, 0),
     });
+    return groups.find(({ grammar }) => grammar === editor.getGrammar())?.captures ?? [];
   }
 
   function expectLocalTile(captures) {
@@ -92,7 +92,7 @@ describe("Dart Tree-sitter highlights", () => {
     }
     parameters.push("> {}");
     await setUp(parameters.join("\r\n"));
-    expectLocalTile(rawCaptures(3000, 3006));
+    expectLocalTile(await rawCaptures(3000, 3006));
 
     const argumentsSource = ["Box<"];
     for (let index = 0; index < 6000; index++) {
@@ -101,7 +101,7 @@ describe("Dart Tree-sitter highlights", () => {
     argumentsSource.push("> value;");
     editor.setText(argumentsSource.join("\r\n"));
     await editor.getBuffer().languageMode.atTransactionEnd();
-    expectLocalTile(rawCaptures(3000, 3006));
+    expectLocalTile(await rawCaptures(3000, 3006));
 
     const query = fs.readFileSync(HIGHLIGHTS_PATH, "utf8");
     expect(query).toContain("(#is? test.childOfType type_arguments)");
@@ -131,8 +131,8 @@ describe("Dart Tree-sitter highlights", () => {
     }
     objectLines.push("  ) in values) {}", "}");
     await setUp(objectLines.join("\r\n"));
-    expect(editor.getBuffer().languageMode.tree.rootNode.hasError).toBe(false);
-    let captures = rawCaptures(3000, 3006);
+    expect((await editor.getSyntaxDiagnostics()).hasError).toBe(false);
+    let captures = await rawCaptures(3000, 3006);
     expect(captures.length).toBeLessThanOrEqual(64);
     expect(
       captures
@@ -147,8 +147,8 @@ describe("Dart Tree-sitter highlights", () => {
     recordLines.push("  ) = record;", "}");
     editor.setText(recordLines.join("\r\n"));
     await editor.getBuffer().languageMode.atTransactionEnd();
-    expect(editor.getBuffer().languageMode.tree.rootNode.hasError).toBe(false);
-    captures = rawCaptures(3000, 3006);
+    expect((await editor.getSyntaxDiagnostics()).hasError).toBe(false);
+    captures = await rawCaptures(3000, 3006);
     expect(captures.length).toBeLessThanOrEqual(64);
     expect(
       captures
