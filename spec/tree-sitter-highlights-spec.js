@@ -20,11 +20,12 @@ describe("Dart Tree-sitter highlights", () => {
   }
 
   async function rawCaptures(startRow, endRow) {
-    const groups = await editor.getGrammarQueryCaptureGroups("highlightsQuery", {
+    const query = await editor.getGrammar().getQuery("highlightsQuery");
+    const root = editor.getSyntaxNodeAtBufferPosition([0, 0], (node) => !node.parent);
+    return query.captures(root, {
       startPosition: new Point(startRow, 0),
       endPosition: new Point(endRow, 0),
     });
-    return groups.find(({ grammar }) => grammar === editor.getGrammar())?.captures ?? [];
   }
 
   function expectLocalTile(captures) {
@@ -131,7 +132,8 @@ describe("Dart Tree-sitter highlights", () => {
     }
     objectLines.push("  ) in values) {}", "}");
     await setUp(objectLines.join("\r\n"));
-    expect((await editor.getSyntaxDiagnostics()).hasError).toBe(false);
+    let root = editor.getSyntaxNodeAtBufferPosition([0, 0], (node) => !node.parent);
+    expect(root.hasError).toBe(false);
     let captures = await rawCaptures(3000, 3006);
     expect(captures.length).toBeLessThanOrEqual(64);
     expect(
@@ -147,7 +149,8 @@ describe("Dart Tree-sitter highlights", () => {
     recordLines.push("  ) = record;", "}");
     editor.setText(recordLines.join("\r\n"));
     await editor.getBuffer().languageMode.atTransactionEnd();
-    expect((await editor.getSyntaxDiagnostics()).hasError).toBe(false);
+    root = editor.getSyntaxNodeAtBufferPosition([0, 0], (node) => !node.parent);
+    expect(root.hasError).toBe(false);
     captures = await rawCaptures(3000, 3006);
     expect(captures.length).toBeLessThanOrEqual(64);
     expect(

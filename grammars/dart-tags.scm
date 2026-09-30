@@ -50,43 +50,28 @@
 (function_signature
   name: (identifier) @name) @definition.function 
 
-(initialized_variable_definition
-  name: (identifier)
-  value: (identifier) @name 
-  value: (selector
-	"!"?
-	(argument_part 
-	  (arguments
-	    (argument)*))?)?) @reference.class
+; Dart flattens call chains into sibling selectors. Match the called leaf
+; against its immediate argument selector instead of repeating the chain.
+((identifier) @name @reference.call
+  (#is? test.typeAt "nextNamedSibling.firstNamedChild argument_part"))
 
-(assignment_expression
-  left: (assignable_expression 
-		  (identifier)
-		  (unconditional_assignable_selector
-			"."
-			(identifier) @name))) @reference.call
+; A nullable function can be invoked after one non-null assertion selector.
+((identifier) @name @reference.call
+  (#is? test.textAt "nextNamedSibling !")
+  (#is? test.typeAt "nextNamedSibling.nextNamedSibling.firstNamedChild argument_part"))
 
-(assignment_expression
-  left: (assignable_expression 
-		  (identifier)
-		  (conditional_assignable_selector
-			"?."
-			(identifier) @name))) @reference.call
+([
+  (unconditional_assignable_selector (identifier) @name @reference.call)
+  (conditional_assignable_selector (identifier) @name @reference.call)
+]
+  (#is? test.typeAt "parent.parent.nextNamedSibling.firstNamedChild argument_part"))
 
-((identifier) @name
- (selector
-    "!"?
-    (conditional_assignable_selector
-      "?." (identifier) @name)?
-    (unconditional_assignable_selector
-      "."? (identifier) @name)?
-    (argument_part
-      (arguments
-        (argument)*))?)*
-	(cascade_section
-	  (cascade_selector
-		(identifier)) @name 
-	  (argument_part 
-		(arguments
-		  (argument)*))?)?) @reference.call
+([
+  (unconditional_assignable_selector (identifier) @name @reference.call)
+  (conditional_assignable_selector (identifier) @name @reference.call)
+]
+  (#is? test.textAt "parent.parent.nextNamedSibling !")
+  (#is? test.typeAt "parent.parent.nextNamedSibling.nextNamedSibling.firstNamedChild argument_part"))
 
+((cascade_selector (identifier) @name @reference.call)
+  (#is? test.typeAt "parent.nextNamedSibling argument_part"))
