@@ -7,6 +7,8 @@ Dart language support.
 - **Grammars**: provides Tree-sitter grammars, built from [tree-sitter-dart](https://github.com/UserNobody14/tree-sitter-dart).
 - **Syntax highlighting**: full tree-sitter grammar coverage for Dart files.
 
+![Dart syntax highlighting at the default editor font size.](.github/demo.png)
+
 ## Installation
 
 To install `language-dart` search for it in the Install pane of the Lumine settings, or run the command `lumine --install lumine-code/language-dart`.

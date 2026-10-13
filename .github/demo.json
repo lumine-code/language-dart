@@ -1,0 +1,16 @@
+{
+  "title": "language-dart",
+  "description": "Dart syntax highlighting in the editor.",
+  "recordedOn": "2026-10-13",
+  "sourceRevision": "aae70b227426d18ffe6c7febb8a802d476c379c3",
+  "mode": "normal",
+  "fontSettings": "default",
+  "images": [
+    {
+      "file": "demo.png",
+      "label": "Dart syntax highlighting at the default editor font size.",
+      "width": 1100,
+      "height": 360
+    }
+  ]
+}
