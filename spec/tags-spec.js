@@ -68,7 +68,7 @@ describe("Dart symbol queries", () => {
     const source = `void main() { object${chain}; }`;
     const query = await grammar.getQuery("tagsQuery");
     const parser = grammar.createParser(await grammar.getLanguage());
-    const tree = parser.parse(source);
+    const tree = await parser.parse(source);
     try {
       expect(tree.rootNode.hasError).toBe(false);
       const start = source.indexOf("method1500");
@@ -82,8 +82,7 @@ describe("Dart symbol queries", () => {
       ).toBe(true);
       expect(query.didExceedMatchLimit()).toBe(false);
     } finally {
-      tree.delete();
-      parser.delete();
+      parser.close();
     }
     const result = await captures(source);
     expect(result.filter(({ name }) => name === "reference.call").length).toBe(size);
