@@ -150,6 +150,8 @@
   name: (identifier) @support.type.dart)
 (constructor_signature
   name: (identifier) @support.type.dart)
+(primary_constructor
+  name: (identifier) @support.type.dart)
 (scoped_identifier
   scope: (identifier) @support.type.dart)
 (function_signature
