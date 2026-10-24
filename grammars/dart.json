@@ -13,7 +13,7 @@
     // line before trusting it — `gh api repos/OWNER/REPO/compare/<ref>...HEAD`
     // reporting `diverged` or a nonzero `behind` means it is not.
     "parserSource": "github:UserNobody14/tree-sitter-dart#0038280b774b65c1b89ba7fec50624d8baed9fe1",
-    "wasmBuildTool": "tree-sitter-cli#v0.27.0",
+    "wasmBuildTool": "tree-sitter-cli#v0.27.1",
     "grammar": "dart.wasm",
     "highlightsQuery": "dart-highlights.scm",
     "injectionsQuery": "dart-injections.scm",
