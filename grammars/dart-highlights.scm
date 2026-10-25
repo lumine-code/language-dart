@@ -244,9 +244,15 @@
 (null_literal) @constant.other.null.dart
 
 ((documentation_comment) @comment.line.dart
+  (#match? @comment.line.dart "^//")
   (#set! adjust.endBeforeFirstMatchOf "\\r?$"))
+((documentation_comment) @comment.block.dart
+  (#match? @comment.block.dart "^/\\*"))
 ((comment) @comment.line.dart
+  (#match? @comment.line.dart "^//")
   (#set! adjust.endBeforeFirstMatchOf "\\r?$"))
+((comment) @comment.block.dart
+  (#match? @comment.block.dart "^/\\*"))
 
 ; Annotations
 ; --------------------
