@@ -17,6 +17,7 @@ describe("Dart Tree-sitter highlights", () => {
     editor = await lumine.workspace.open("types.dart");
     editor.setText(text);
     await editor.getBuffer().languageMode.ready;
+    await editor.getBuffer().languageMode.atTransactionEnd();
   }
 
   async function rawCaptures(startRow, endRow) {
