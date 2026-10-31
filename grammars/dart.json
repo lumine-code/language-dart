@@ -16,6 +16,7 @@
     "wasmBuildTool": "tree-sitter-cli#v0.27.1",
     "grammar": "dart.wasm",
     "highlightsQuery": "dart-highlights.scm",
+    "indentsQuery": "dart-indents.scm",
     "injectionsQuery": "dart-injections.scm",
     "tagsQuery": "dart-tags.scm"
   }
