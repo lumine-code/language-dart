@@ -3,6 +3,9 @@ Source: https://github.com/UserNobody14/tree-sitter-dart
 Commit: 0038280b774b65c1b89ba7fec50624d8baed9fe1
 Ref: 0038280b774b65c1b89ba7fec50624d8baed9fe1
 
+Parser source: github:UserNobody14/tree-sitter-dart#0038280b774b65c1b89ba7fec50624d8baed9fe1
+Resolved commit: 0038280b774b65c1b89ba7fec50624d8baed9fe1
+
 Original file: LICENSE
 
 Copyright (c) 2020-2023 UserNobody14 and others
